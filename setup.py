@@ -8,7 +8,8 @@ setup(
     package_dir={'rmgr': 'inc/rmgr'},
     install_requires=[
             'cbutil',
-            'aiofile'
+            'aiofile',
+            'awrand'
         ],
     python_requires='>=3.8',
 
