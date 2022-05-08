@@ -3,7 +3,7 @@ from setuptools import *
 
 setup(
     name='rmgr',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_namespace_packages('inc'),
     package_dir={'rmgr': 'inc/rmgr'},
     install_requires=[
