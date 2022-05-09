@@ -7,8 +7,7 @@ import asyncio
 import aiofile
 from typing import *
 from .path import *
-from .rand import *
-from .config import *
+from awrand import *
 
 __all__ = ['run_cmd_async', 'run_shellscript_async']
 
@@ -38,8 +37,6 @@ async def run_cmd_async(cmd, cwd=None, env=None):
 
 
 async def run_shellscript_async(shellscript: str, tmp_file_path:Path=None, cwd=None, env=None):
-    if tmp_file_path is None:
-        tmp_file_path = path.make_tmp(suffix='.bat')
     async with aiofile.AIOFile(tmp_file_path, 'w') as fw:
         await fw.write(shellscript)
         

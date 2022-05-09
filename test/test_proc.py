@@ -1,20 +1,16 @@
-import logging
-import sys
-
-import chardet
-
-from rmgr import *
 import asyncio
+from rmgr import *
 
 proj_root_path = Path(__file__).prnt.prnt
 test_tmp_path = proj_root_path/Path('tmp/test')
-init_rmgr(test_tmp_path)
 
-from rmgr.core import *
-
+async def atest_init():
+    rctx = ResContext(test_tmp_path)
 
 async def atest_run_shellscript_async():
-    res = await run_shellscript_async(r'echo "Hello world!" > hello_world.txt', cwd=path.cache)
+    rctx = ResContext(test_tmp_path)
+    path = rctx.path
+    res = await rctx.run_shellscript_async(r'echo "Hello world!" > hello_world.txt', cwd=path.cache)
     assert((path.cache/'hello_world.txt').exists())
     
 

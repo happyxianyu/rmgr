@@ -1,10 +1,9 @@
 from typing import *
 import dataclasses
 from dataclasses import dataclass
-import sys
 
 from cbutil import Path
-from .rand import *
+from awrand import *
 
 __all__ = ['make_path_info']
 
