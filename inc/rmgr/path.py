@@ -5,31 +5,38 @@ from dataclasses import dataclass
 from cbutil import Path
 from awrand import *
 
-__all__ = ['make_path_info']
+__all__ = ['make_path_info', 'PathInfo']
 
+@dataclass
+class PathInfo:
+    root: Path 
+    core: Path      # for read-only data
+    data: Path   # for persistent data
+    cache: Path
+    tmp: Path
 
-def make_path_info(r: Union[Path, str]):
-    @dataclass
-    class _path:
-        root: Path = Path(r)
-        core: Path = root/'core'      # for read-only data
-        data: Path = root/'data'   # for persistent data
-        cache: Path = root/'cache'
-        tmp: Path = root/'tmp'
+    messey: Path  # for any temp files
 
-        messey: Path = tmp/'messey'  # for any temp files
+    def clean_tmp(self):
+        self.tmp.remove_sons()
 
-        def clean_tmp(self):
-            self.tmp.remove_sons()
+    def make_tmp(self, suffix='', prefix=''):
+        return self.messey / (prefix + make_id_str() + suffix)
+    
+    def create_path(self):
+        for p in dataclasses.astuple(self):
+            p: Path
+            p.mkdir()
 
-        def make_tmp(self, suffix='', prefix=''):
-            return self.messey / (prefix + make_id_str() + suffix)
-        
-        def create_path(self):
-            for p in dataclasses.astuple(self):
-                p: Path
-                p.mkdir()
-            
-    path = _path()
-
+def make_path_info(root: Union[Path, str]):
+    path = PathInfo(
+        root = Path(root),
+        core = root/'core',      # for read-only data
+        data = root/'data',  # for persistent data
+        cache = root/'cache',
+        tmp = root/'tmp',
+        messey = root/'tmp/messey'  # for any temp files
+    )
     return path
+
+
