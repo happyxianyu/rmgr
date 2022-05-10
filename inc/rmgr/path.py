@@ -9,13 +9,13 @@ __all__ = ['make_path_info', 'PathInfo']
 
 @dataclass
 class PathInfo:
-    root: Path 
-    core: Path      # for read-only data
-    data: Path   # for persistent data
-    cache: Path
-    tmp: Path
+    root: Path = None
+    core: Path = None    # for read-only data
+    data: Path = None  # for persistent data
+    cache: Path = None
+    tmp: Path = None
 
-    messey: Path  # for any temp files
+    messey: Path = None  # for any temp files
 
     def clean_tmp(self):
         self.tmp.remove_sons()
