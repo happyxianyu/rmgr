@@ -14,6 +14,7 @@ class PathInfo:
     data: Path = None  # for persistent data
     cache: Path = None
     tmp: Path = None
+    log: Path = None
 
     messey: Path = None  # for any temp files
 
@@ -35,7 +36,8 @@ def make_path_info(root: Union[Path, str]):
         data = root/'data',  # for persistent data
         cache = root/'cache',
         tmp = root/'tmp',
-        messey = root/'tmp/messey'  # for any temp files
+        messey = root/'tmp/messey',  # for any temp files
+        log = root/'tmp/log'
     )
     return path
 
